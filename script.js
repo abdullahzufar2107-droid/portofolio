@@ -1,31 +1,33 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    const links = document.querySelectorAll('.nav-links li');
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-links');
+const closeBtn = document.querySelector('.close-menu');
+const links = document.querySelectorAll('.nav-links a');
 
-    // Toggle Menu Hamburger di Mobile
-    hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        
-        // Animasi ikon burger (opsional, bisa ubah icon jadi X)
-        hamburger.classList.toggle('toggle');
-    });
+// Buka menu
+hamburger.onclick = () => {
+    navMenu.classList.add('active');
+}
 
-    // Tutup menu saat salah satu link diklik
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-        });
-    });
+// Tutup menu pake tombol X
+if (closeBtn) {
+    closeBtn.onclick = () => {
+        navMenu.classList.remove('active');
+    }
+}
 
-    // Smooth Scrolling untuk navigasi
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
+// Tutup menu pas link diklik & smooth scroll
+links.forEach(link => {
+    link.onclick = () => {
+        navMenu.classList.remove('active');
+    }
+});
 
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+// Smooth scroll simpel
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
         });
     });
 });
